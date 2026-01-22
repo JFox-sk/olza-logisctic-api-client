@@ -15,7 +15,7 @@ class ClientTest extends TestCase
     protected $transportServiceMock;
     protected $apiBatchRequestMock;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transportServiceMock = $this->createMock(TransportInterface::class);
         $this->transportServiceMock->method('executePost')->willReturn([

@@ -18,11 +18,9 @@ on:
   push:
     branches:
     - "master"
-    - "dev"
   pull_request:
     branches:
     - "master"
-    - "dev"
 
 jobs:
   tests:
@@ -36,13 +34,12 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.1"
+          php-version: "7.4"
 
       - name: Install dependencies
         uses: php-actions/composer@v6
         with:
-          php_version: "7.1"
-          version: "2.2.x"
+          php_version: "7.4"
         
       - name: "Running PHPUnit…"
         shell: bash
