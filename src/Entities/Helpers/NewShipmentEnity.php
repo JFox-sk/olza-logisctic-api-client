@@ -213,6 +213,22 @@ class NewShipmentEnity extends AbstractHelper
     protected $recipientCounty;
     
     /**
+     *
+     * @var bool 
+     */
+    protected $recipientWarehouseFlag = false;
+    
+    /**
+     * 
+     * @var array
+     */
+    protected $customs = [
+        'params' => [],
+        'items' => [],
+    ];
+    
+    
+    /**
      * 
      * @return string
      */
@@ -865,6 +881,88 @@ class NewShipmentEnity extends AbstractHelper
         $this->dispatchPlaceId = $dispatchPlaceId;
         return $this;
     }
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function getRecipientWarehouseFlag() {
+        return $this->recipientWarehouseFlag;
+    }
+
+    /**
+     * 
+     * @param bool $recipientWarehouseFlag
+     * @return $this
+     */
+    public function setRecipientWarehouseFlag($recipientWarehouseFlag) {
+        $this->recipientWarehouseFlag = $recipientWarehouseFlag;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getCustoms(): array {
+        return $this->customs;
+    }
+
+    /**
+     * Internal structure according to the docummentation.
+     * 
+     * @param array $customs
+     * @return $this
+     */
+    public function setCustoms(array $customs) {
+        $this->customs = $customs;
+        return $this;
+    }
+    
+    /**
+     * Internal structure according to the docummentation.
+     * 
+     * @param array $params
+     * @return $this
+     */
+    public function setCustomsParams(array $params) {
+        $this->customs['params'] = $params;
+        return $this;
+    }
+    
+    /**
+     * Internal structure according to the docummentation.
+     * 
+     * @param array $items
+     * @return $this
+     */
+    public function setCustomsItems(array $items) {
+        $this->customs['items'] = $items;
+        return $this;
+    }
+    
+    /**
+     * Internal structure according to the docummentation.
+     * 
+     * @param string $paramCode
+     * @param mixed $paramValue
+     * @return $this
+     */
+    public function addParamToCustoms($paramCode, $paramValue) {
+        $this->customs['params'][$paramCode] = $paramValue;
+        return $this;
+    }
+    
+    /**
+     * Internal structure according to the docummentation.
+     * 
+     * @param array $item
+     * @return $this
+     */
+    public function addItemToCustoms(array $item) {
+        $this->customs['items'][] = $item;
+        return $this;
+    }
 
                     
     /**
@@ -898,6 +996,7 @@ class NewShipmentEnity extends AbstractHelper
         );
         
         $out['recipient'] = Array(
+            'recipientWarehouseFlag' => $this->getRecipientWarehouseFlag(),
             'recipientFirstname' => $this->getRecipientFirstname(),
             'recipientSurname' => $this->getRecipientSurname(),
             'recipientAddress' => $this->getRecipientAddress(),
@@ -928,6 +1027,8 @@ class NewShipmentEnity extends AbstractHelper
             'shipmentPickupDate' => $this->getShipmentPickupDate(),
             'marketPlaceId' => $this->getMarketPlaceId(),
         );
+        
+        $out['customs'] = $this->getCustoms();
         
         return $this->arrayFilterRecursive($out);
     }

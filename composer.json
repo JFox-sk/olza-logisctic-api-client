@@ -1,12 +1,13 @@
 {
     "name": "develart-projects/olza-logisctic-api-client",
     "description": "Client for Olza Logistic system API",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "keywords": ["Olza", "OlzaLogistic", "API client", "Olza API client", "DevelArt"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "OlzaApiClient\\": "src/"
+            "OlzaApiClient\\": "src/",
+            "Test\\": "tests/"
         }
     },
     "authors": [
@@ -18,11 +19,20 @@
     "require" : {
       "psr/http-client": "^1.0",
       "psr/http-factory": "^1.0",
-      "php": ">=7.1",
+      "php": ">=7.4",
       "ext-json": "*"  
     },
     "suggest": {
         "guzzlehttp/guzzle": "Provides http package to the client automaticaly."
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --verbose --testdox -c phpunit.xml.dist",
+        "test-coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "vendor/bin/phpunit --coverage-text -c phpunit.xml.dist"
+        ]
     }
 }
-

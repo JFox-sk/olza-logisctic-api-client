@@ -1,5 +1,25 @@
 # Change Log
 
+## 1.7.0 - 2024-09-20
+
+* Added new funtionality - getReceipt
+
+## 1.6.4 - 2024-04-24
+
+* Added Customs fields to NewShipment helper
+
+## 1.6.3 - 2024-02-08
+
+* PostShipments response extended, InfoList adn Info objects added
+
+## 1.6.2 - 2023-12-01
+
+* Added ricipient warehouse flag to the NewShipment Helper
+
+## 1.6.1 - 2023-10-17
+
+* Corected path to default Guzzle HttpFactory
+
 ## 1.6.0 - 2023-10-17
 
 * HTTP client decoupled from the library (preventing version clashes)

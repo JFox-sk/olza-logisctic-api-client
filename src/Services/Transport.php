@@ -75,7 +75,7 @@ class Transport
                 throw new \RuntimeException('RequestFactory not found. See library docs for assistance.');
             }
             
-            if($requestFactory === NULL) {
+            if($streamFactory === NULL) {
                 throw new \RuntimeException('StreamFactory not found. See library docs for assistance.');
             }
             
@@ -113,7 +113,7 @@ class Transport
         $this->provider = new $httpClientClass($guzzleOptions);
         
         // this is part of Guzzle by default
-        $psr17factoryClass = '\Nyholm\Psr7\Factory\Psr17Factory';        
+        $psr17factoryClass = '\GuzzleHttp\Psr7\HttpFactory';        
         
         $this->requestFactory = new $psr17factoryClass;
         $this->streamFactory = new $psr17factoryClass;
@@ -139,17 +139,14 @@ class Transport
             //communication
             if($method == self::METHOD_POST) { // POST
        
-                $request = $request->withHeader('Content-Type', 'application/json');
-
-                $requestWithBody = $request->withBody(
-                        $this->streamFactory->createStream( json_encode($body) )
-                );
-    
-                $response = $this->provider->sendRequest($requestWithBody);
+                $request = $request->withHeader('Content-Type', 'application/json')
+                                ->withBody(
+                                        $this->streamFactory->createStream( json_encode($body) )
+                                );
         
-            } else { // GET
-                $response = $this->provider->sendRequest($request);
             }
+            
+            $response = $this->provider->sendRequest($request);
             
             if($response->getStatusCode() >= 400) {
                 throw new ApiTransportException($response->getReasonPhrase(), $response->getStatusCode());
